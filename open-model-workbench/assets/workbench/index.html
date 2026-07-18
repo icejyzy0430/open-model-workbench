@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111411" />
+    <title>Model Composition Stage</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./composer.css" />
+  </head>
+  <body data-status="loading" data-mode="translate">
+    <main class="workspace">
+      <section id="stage" class="stage" aria-label="模型构图画布">
+        <canvas id="stageCanvas"></canvas>
+        <div id="safeFrame" class="safe-frame" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <div class="stage-status" aria-live="polite">
+          <span id="modeStatus">TRANSLATE / SCREEN</span>
+          <span id="selectionStatus">MODEL 01</span>
+        </div>
+      </section>
+
+      <header class="topbar">
+        <div class="wordmark">
+          <span class="wordmark-index">MW</span>
+          <span>MODEL / WORKBENCH</span>
+        </div>
+        <div class="mode-switch" role="group" aria-label="变换模式">
+          <button id="translateMode" class="mode-button is-active" type="button" aria-pressed="true" title="位移模式 (E)">
+            <i data-lucide="move-3d" aria-hidden="true"></i><span>位移</span>
+          </button>
+          <button id="rotateMode" class="mode-button" type="button" aria-pressed="false" title="旋转模式 (E)">
+            <i data-lucide="rotate-3d" aria-hidden="true"></i><span>旋转</span>
+          </button>
+        </div>
+        <div class="top-actions">
+          <button id="exportLayout" class="icon-button" type="button" aria-label="导出布局" title="导出布局 JSON">
+            <i data-lucide="braces" aria-hidden="true"></i>
+          </button>
+          <button id="capture" class="primary-action" type="button" title="生成干净构图截图">
+            <i data-lucide="camera" aria-hidden="true"></i><span>生成截图</span>
+          </button>
+        </div>
+      </header>
+
+      <aside class="object-panel">
+        <div class="panel-heading">
+          <span>OBJECTS</span><span id="modelCount">00</span>
+        </div>
+        <div id="objectList" class="object-list" role="listbox" aria-label="模型列表"></div>
+      </aside>
+
+      <aside class="inspector">
+        <div class="panel-heading"><span>TRANSFORM</span><span id="selectedId">NONE</span></div>
+        <div class="inspector-section">
+          <div class="section-label"><span>POSITION</span><button id="centerPosition" class="mini-button" type="button" title="回到屏幕中心 (F)" aria-label="回到屏幕中心"><i data-lucide="focus" aria-hidden="true"></i></button></div>
+          <div class="vector-grid" data-vector="position">
+            <label><span class="axis-x">X</span><input id="positionX" type="number" step="0.05" /></label>
+            <label><span class="axis-y">Y</span><input id="positionY" type="number" step="0.05" /></label>
+            <label><span class="axis-z">Z</span><input id="positionZ" type="number" step="0.05" /></label>
+          </div>
+        </div>
+        <div class="inspector-section">
+          <div class="section-label"><span>ROTATION</span><button id="resetRotation" class="mini-button" type="button" title="复原初始角度 (G)" aria-label="复原初始角度"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button></div>
+          <div class="vector-grid" data-vector="rotation">
+            <label><span class="axis-x">X</span><input id="rotationX" type="number" step="1" /></label>
+            <label><span class="axis-y">Y</span><input id="rotationY" type="number" step="1" /></label>
+            <label><span class="axis-z">Z</span><input id="rotationZ" type="number" step="1" /></label>
+          </div>
+        </div>
+        <div class="inspector-section">
+          <div class="section-label"><span>SIZE</span><output id="scaleValue">1.00</output></div>
+          <input id="scaleControl" class="scale-control" type="range" min="0.25" max="2.5" step="0.01" value="1" />
+        </div>
+        <div class="inspector-section">
+          <div class="section-label"><span>STAGE</span></div>
+          <div id="backgroundSwatches" class="swatches" aria-label="背景颜色">
+            <button type="button" data-color="#111411" style="--swatch:#111411" aria-label="深色背景"></button>
+            <button type="button" data-color="#E9ECE8" style="--swatch:#E9ECE8" aria-label="浅色背景"></button>
+            <button type="button" data-color="#171B24" style="--swatch:#171B24" aria-label="蓝黑背景"></button>
+            <button type="button" data-color="#27191A" style="--swatch:#27191A" aria-label="红黑背景"></button>
+          </div>
+          <label class="toggle-row"><span>GRID</span><input id="gridToggle" type="checkbox" checked /><i></i></label>
+          <label class="toggle-row"><span>SAFE FRAME</span><input id="safeFrameToggle" type="checkbox" checked /><i></i></label>
+        </div>
+      </aside>
+
+      <div id="loading" class="loading" role="status" aria-live="polite">
+        <span id="loadingValue">00</span><span>LOADING MODELS</span>
+      </div>
+      <div id="errorState" class="error-state" role="alert" hidden>
+        <p id="errorMessage">模型加载失败</p>
+        <button id="retry" type="button">重新加载</button>
+      </div>
+    </main>
+
+    <dialog id="captureDialog" class="capture-dialog">
+      <header><span>COMPOSITION CAPTURE</span><button id="closeCapture" class="icon-button" type="button" aria-label="关闭"><i data-lucide="x" aria-hidden="true"></i></button></header>
+      <img id="capturePreview" alt="构图截图预览" />
+      <footer><span id="captureSize">1920 × 1080</span><a id="downloadCapture" class="primary-action" download="model-composition.png"><i data-lucide="download" aria-hidden="true"></i><span>保存 PNG</span></a></footer>
+    </dialog>
+
+    <script type="importmap">
+      {"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/"}}
+    </script>
+    <script src="./vendor/lucide.min.js"></script>
+    <script src="./composer-config.js"></script>
+    <script type="module" src="./composer.js"></script>
+  </body>
+</html>

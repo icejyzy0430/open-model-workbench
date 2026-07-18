@@ -1,0 +1,4 @@
+interface:
+  display_name: "3D 模型构图工作台"
+  short_description: "打开本地工作台，摆放多个 GLB/GLTF 模型并导出构图"
+  default_prompt: "使用 $open-model-workbench 打开模型工作台；如果我还没有提供模型，请先让我提供 GLB 或 GLTF 文件。"
