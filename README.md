@@ -1,8 +1,6 @@
-# Codex Skills by Icejyzy
+# Open Model Workbench
 
-面向视觉创作与 3D 网页工作流的 Codex Skills。当前包含可以开箱即用的 **3D 模型构图工作台**。
-
-## 3D 模型构图工作台
+一个面向视觉创作与 3D 网页工作流、可以开箱即用的 **3D 模型构图工作台 Codex Skill**。
 
 把一个或多个 GLB/GLTF 模型交给 Codex，自动在本地生成并打开一套桌面 3D 构图工具。用户可以直接摆放、旋转和缩放模型，再导出干净的网页构图截图与可复现的布局数据。
 
@@ -39,7 +37,7 @@
 
 ```text
 请安装这个 Skill：
-https://github.com/icejyzy0430/codex-skills/tree/main/open-model-workbench
+https://github.com/icejyzy0430/open-model-workbench/tree/main/open-model-workbench
 ```
 
 安装完成后，在下一轮对话中说：
