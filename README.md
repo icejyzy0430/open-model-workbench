@@ -73,6 +73,11 @@ python -m unittest discover -s open-model-workbench/tests -p "test_*.py" -v
 
 Skill 本体位于 [`open-model-workbench/`](open-model-workbench/)。
 
+## 联系方式
+
+QQ交流群<img width="1080" height="1920" alt="f0bfcea47ac593d489bbf5524c566f69" src="https://github.com/user-attachments/assets/08beb585-b744-4efb-9749-d73823ec038a" />
+
+
 ## License
 
 项目代码使用 [MIT License](LICENSE)。Three.js 与 Lucide 等第三方资源保留各自许可证，许可证文件随 Skill 一同分发。
