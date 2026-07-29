@@ -75,7 +75,8 @@ Skill 本体位于 [`open-model-workbench/`](open-model-workbench/)。
 
 ## 联系方式
 
-QQ交流群<img width="1080" height="1920" alt="f0bfcea47ac593d489bbf5524c566f69" src="https://github.com/user-attachments/assets/08beb585-b744-4efb-9749-d73823ec038a" />
+<img width="940" height="1705" alt="6f51368d9e6a013681f535bdb1816f0b" src="https://github.com/user-attachments/assets/ff77b0e2-90eb-4ac0-a555-837ec938ca9a" />
+
 
 
 ## License
