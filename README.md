@@ -74,6 +74,7 @@ python -m unittest discover -s open-model-workbench/tests -p "test_*.py" -v
 Skill 本体位于 [`open-model-workbench/`](open-model-workbench/)。
 
 ## 联系方式
+QQ群563378586
 
 <img width="940" height="1705" alt="6f51368d9e6a013681f535bdb1816f0b" src="https://github.com/user-attachments/assets/ff77b0e2-90eb-4ac0-a555-837ec938ca9a" />
 
