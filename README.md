@@ -73,10 +73,11 @@ python -m unittest discover -s open-model-workbench/tests -p "test_*.py" -v
 
 Skill 本体位于 [`open-model-workbench/`](open-model-workbench/)。
 
-## 联系方式
+## 赞助商
+感谢SoloAPI对本次项目的token支持 
+真正源头低价，支持任何形式检测，满血无掺水，支持一键式接入Codex，直连即可用，零配置难度
+充一块钱可用1000万token的gpt5.6terra模型
 QQ群563378586
-
-<img width="940" height="1705" alt="6f51368d9e6a013681f535bdb1816f0b" src="https://github.com/user-attachments/assets/ff77b0e2-90eb-4ac0-a555-837ec938ca9a" />
 
 
 
